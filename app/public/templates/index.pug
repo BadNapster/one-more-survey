@@ -1,0 +1,15 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1")
+        title A-lovely-surveys
+        include bootstrap_css_import
+        link(rel="stylesheet", href="/static/css/hello.css")
+        link(rel='stylesheet' href='/static/css/styles.css')
+        script(src="/static/js/base.js")
+    body
+        include header
+        #root
+        script(src="/static/js/main.js", async=true)
+        include bootstrap_js_import

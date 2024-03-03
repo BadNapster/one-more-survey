@@ -1,0 +1,58 @@
+doctype html
+html
+    head
+        meta(charset='UTF-8')
+        include bootstrap_css_import
+        link(rel='stylesheet' href='/static/css/survey.css')
+        link(rel='stylesheet' href='/static/css/styles.css')
+        script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js')
+        script(src='/static/js/base.js')
+        script(src='/static/js/survey.js')
+        title #{data.title}
+    body
+        include header
+        .root.mt-5
+            if isAuthor
+                .card.survey-card(class=data.style.bg)
+                    .card-body
+                        h5.card-text  #{data.title}
+                        p.card-text  #{data.description}
+                        canvas#histogramContainer
+                        p.card-text  #{data.users}
+                        if !wasEnd
+                            form(name='closeSurvey')
+                                button.btn.btn-outline-success(type='button' onclick='copySurveyLink()') Скопировать ссылку
+                                button.btn.btn-outline-danger(type='button' onclick=`setClosed('${data.id}')`) Закрыть опрос
+                        else
+                            p.card-text Опрос быз закрыт Вами
+                        h5.card-text  Проголосовавшие пользователи
+                        p.card-text#histogramUsers
+                script(src='/static/js/generateHistogram.js' async='')
+                script(src='/static/js/generateHistogramUsers.js' async='')
+            else if hasVoted
+                .card.survey-card
+                    .card-body
+                        h5.card-text  #{data.title}
+                        p.card-text  #{data.description}
+                        canvas#histogramContainer
+                script(src='/static/js/generateHistogram.js' async='')
+            else if wasEnd
+                .card.survey-card
+                    .card-body
+                        h5.card-text Опрос закрыт автором
+                        p.card-text Вы не участвовали в этом опросе и не можете увидеть его результаты
+                        canvas#histogramContainer
+            else
+                .card.survey-card(class=data.style.bg)
+                    .card-body
+                        h5.card-text #{data.title}
+                        p.card-text #{data.description}
+                        form(name="response")
+                            ul
+                                each val, index in data.results
+                                    .form-check
+                                        input.form-check-input(type=data.config, name="answer", value=index, id='my-' + data.config, required='')
+                                        label.form-check-label(for='my-' + data.config)
+                                            p #{index}
+                            button.btn.btn-primary(type="button", onclick=`sendResponse('${data.id}');`) Отправить ответ
+        include bootstrap_js_import

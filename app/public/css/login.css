@@ -1,0 +1,11 @@
+.login-card{
+    width: 25%;
+    margin-top: 10%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#error{
+    color: red;
+    visibility: hidden;
+}

@@ -1,0 +1,17 @@
+#root{
+    width: 70%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.survey-card {
+    width: 90%;
+    height: 10rem;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.survey-card:hover{
+    width: 95%;
+    height: 11rem;
+}
